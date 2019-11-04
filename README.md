@@ -1,63 +1,71 @@
-# ABCBank webapp
+Project Title
 
+One Paragraph of project description goes here
+Getting Started
 
-## Development
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Prerequisites
 
-### build image
+What things you need to install the software and how to install them
 
-1. git clone
+Give examples
 
-	```
-	git clone git@github.ibm.com:NOGAYAMA/abcbank-webapp.git
-	cd abcbank-webapp
-	```
+Installing
 
-1. build image from Dockerfile
+A step by step series of examples that tell you how to get a development env running
 
-	```
-	docker image build --tag abcbank-webapp:latest .
-	```
-1. (optional) smoketest on local
+Say what the step will be
 
-	```
-	docker run -d -p 5000:5000 abcbank-webapp:latest
-	docker ps 
-	curl localhost:5000
-	
-	docker stop $(docker ps -lq)
-	docker rm   $(docker ps -lq)
-	```
+Give the example
 
-### upload the image
+And repeat
 
-1. make sure user account on [DockerHub](https://hub.docker.com)
+until finished
 
-1. create a new tag of the image
+End with an example of getting some data out of the system or using it for a little demo
+Running the tests
 
-	```
-	$ docker image list 
-	REPOSITORY                                 TAG                 IMAGE ID            CREATED             SIZE
-	abcbank-webapp                             latest              b48c890a6c82        9 minutes ago       
-	```
-	
-	```
-	docker image tag b48c890a6c82 nogayama/abcbank-webapp:latest
-	```
+Explain how to run the automated tests for this system
+Break down into end to end tests
 
-1. push the image to dockerhub
+Explain what these tests test and why
 
-	```
-	docker image push nogayama/abcbank-webapp:latest
-	```
+Give an example
 
-	After pushing, you can see image on DockerHub e.g., [nogayama](https://cloud.docker.com/u/nogayama/repository/docker/nogayama/abcbank-webapp)
+And coding style tests
 
-### pull the image
+Explain what these tests test and why
 
-1. pull the image
+Give an example
 
-	```
-	docker image pull nogayama/abcbank-webapp:latest
-	```
+Deployment
 
+Add additional notes about how to deploy this on a live system
+Built With
 
+    Dropwizard - The web framework used
+    Maven - Dependency Management
+    ROME - Used to generate RSS Feeds
+
+Contributing
+
+Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.
+Versioning
+
+We use SemVer for versioning. For the versions available, see the tags on this repository.
+Authors
+
+    John Doe - IBM
+
+See also the list of contributors who participated in this project.
+License
+
+This project is licensed under the MIT License - see the LICENSE.md file for details
+Acknowledgments
+
+    Hat tip to anyone whose code was used
+    Inspiration
+    etc
+
+COPY apache2-2.4.25-r0.apk /
+RUN apk add  --allow-untrusted /apache2-2.4.25-r0.apk
