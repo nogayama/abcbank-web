@@ -1,71 +1,105 @@
-Project Title
+# ABCBank webapp
 
-One Paragraph of project description goes here
-Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-Prerequisites
+## Development
 
-What things you need to install the software and how to install them
+### build image
 
-Give examples
+1. git clone
 
-Installing
+	```
+	git clone git@github.ibm.com:NOGAYAMA/abcbank-webapp.git
+	cd abcbank-webapp
+	```
 
-A step by step series of examples that tell you how to get a development env running
+1. build image from Dockerfile
 
-Say what the step will be
+	```
+	docker image build --tag abcbank-webapp:latest .
+	```
+1. (optional) smoketest on local
 
-Give the example
+	```
+	docker run -d -p 5000:5000 abcbank-webapp:latest
+	docker ps 
+	curl localhost:5000
+	
+	docker stop $(docker ps -lq)
+	docker rm   $(docker ps -lq)
+	```
 
-And repeat
+### upload the image to DockerHub
 
-until finished
+1. make sure user account on [DockerHub](https://hub.docker.com)
 
-End with an example of getting some data out of the system or using it for a little demo
-Running the tests
+1. create a new tag of the image
 
-Explain how to run the automated tests for this system
-Break down into end to end tests
+	```
+	$ docker image list 
+	REPOSITORY                                 TAG                 IMAGE ID            CREATED             SIZE
+	abcbank-webapp                             latest              b48c890a6c82        9 minutes ago       
+	```
+	
+	```
+	docker image tag b48c890a6c82 nogayama/abcbank-webapp:latest
+	```
 
-Explain what these tests test and why
+1. push the image to dockerhub
 
-Give an example
+	```
+	docker image push nogayama/abcbank-webapp:latest
+	```
 
-And coding style tests
+	After pushing, you can see image on DockerHub e.g., [nogayama](https://cloud.docker.com/u/nogayama/repository/docker/nogayama/abcbank-webapp)
 
-Explain what these tests test and why
+### pull the image
 
-Give an example
+1. pull the image
 
-Deployment
+	```
+	docker image pull nogayama/abcbank-webapp:latest
+	```
 
-Add additional notes about how to deploy this on a live system
-Built With
+### Upload the image to IBM Cloud
 
-    Dropwizard - The web framework used
-    Maven - Dependency Management
-    ROME - Used to generate RSS Feeds
+1. login to IBM Cloud
 
-Contributing
+    ```
+    $ ibmcloud login --sso
+    ```
 
-Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.
-Versioning
+1. (optional) change region`ibmcloud cr region-set`
 
-We use SemVer for versioning. For the versions available, see the tags on this repository.
-Authors
+2. Login to Container registry
 
-    John Doe - IBM
+    ```
+    $ ibmcloud cr login
+    ```
 
-See also the list of contributors who participated in this project.
-License
 
-This project is licensed under the MIT License - see the LICENSE.md file for details
-Acknowledgments
+3. add namespace
 
-    Hat tip to anyone whose code was used
-    Inspiration
-    etc
+    ```
+    $ ibmcloud cr namespace-add nogayama
+    ```
 
-COPY apache2-2.4.25-r0.apk /
-RUN apk add  --allow-untrusted /apache2-2.4.25-r0.apk
+4. add tag
+    
+	```
+	docker tag abcbank-web "de.icr.io/nogayama/abcbank-web:latest"
+    ```
+
+5. push
+
+    ```bash
+    #docker push <region>.icr.io/<my_namespace>/<image_repo>:<tag>
+    $ docker push "jp.icr.io/nogayamaapp/mav:0.0.1"
+    ```
+    
+    ```
+    $ ibmcloud cr image-list
+    イメージをリストしています...
+    リポジトリー                タグ    ダイジェスト   名前空間      作成          サイズ   セキュリティー状況
+    jp.icr.io/nogayamaapp/mav   0.0.1   8da58d49aea9   nogayamaapp   2 hours ago   381 MB   3 件の問題   
+    OK
+    ```
