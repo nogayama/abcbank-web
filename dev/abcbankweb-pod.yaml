@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: abcbankweb
+spec:
+  containers:
+    - image: nogayama/abcbankweb:v2
+      name: abcbankweb
+      ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
