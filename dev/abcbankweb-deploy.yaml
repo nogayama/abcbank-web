@@ -15,6 +15,7 @@ spec:
       containers:
       - name: abcbankweb
         image: nogayama/abcbankweb:v1
+        imagePullPolicy: Never
         ports:
         - containerPort: 80
  

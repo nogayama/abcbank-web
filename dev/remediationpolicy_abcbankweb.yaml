@@ -1,0 +1,8 @@
+apiVersion: remediationcontroller.k8s.io/v1alpha1
+kind: RemediationPolicy
+metadata:
+  name: remediationpolicy-for-abcbankweb
+spec:
+  targetType: deployment
+  target: abcbankweb-deployment
+  action: update-restart
